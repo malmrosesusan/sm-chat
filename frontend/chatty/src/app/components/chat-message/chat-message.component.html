@@ -1,0 +1,19 @@
+<div
+    *ngIf="message"
+    class="text-gray-600 p-4 border rounded-lg mb-2 mr-10"
+    [ngClass]="{
+        'bg-lime-100 text-right mr-0 ml-10': message.user.name === user.name && message.user.name !== 'bot', 'bg-amber-100':message.user.name !== user.name && message.user.name !== 'bot', 'bg-blue-50': message.user.name === 'bot'
+    }"
+>
+    <div class="flex justify-between">
+        <div class="font-bold text-base">{{ message.user.name }} <span [ngClass]="{'text-green-300':message.user.isOnline, 'text-gray-500':!message.user.isOnline}"><fa-icon [icon]="faCircle" [size]="'2xs'"></fa-icon></span></div>
+        <div class="text-xs">{{ message.createdAt | date:'short' }}</div>
+    </div>
+    <p class="text-gray-700 text-base">
+        {{ message.message }}
+    </p>
+
+</div>
+
+
+

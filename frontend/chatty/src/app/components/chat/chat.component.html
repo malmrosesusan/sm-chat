@@ -1,0 +1,109 @@
+<div class="h-screen bg-yellow-50 p-8">
+    <div class="max-w-md">
+        <ng-container *ngIf="!displayMessageForm">
+
+            <div class="text-gray-4 mb-2">
+                You may chat with other "users" by opening the same URL in a different browser or incognito tab.
+            </div>
+
+            <form id="userInfoForm" [formGroup]="userInfoForm">
+                <div>
+                    <label
+                        for="message"
+                        class="block text-sm font-medium leading-6 text-gray-900"
+                        >Enter your name to join the chat.</label
+                    >
+                    <div class="relative mt-4 rounded-md shadow-sm">
+                        <input
+                            type="text"
+                            name="name"
+                            id="name"
+                            [formControlName]="'name'"
+                            class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 placeholder:text-gray-400"
+                            placeholder="Name"
+                        />
+                    </div>
+                </div>
+                <div class="flex justify-end">
+                    <button
+                        [disabled]="!userInfoForm.valid"
+                        class="py-1.5 px-4 mt-4 bg-blue-200 text-white rounded-md"
+                        [ngClass]="{
+                            'cursor-pointer bg-blue-400': userInfoForm.valid
+                        }"
+                        (click)="joinChat()"
+                    >
+                        Join Chat
+                    </button>
+                </div>
+            </form>
+        </ng-container>
+
+        <ng-container *ngIf="displayMessageForm">
+
+
+            <div class="max-w-sm rounded-lg border border-white bg-white overflow-y-scroll" style="max-height: 500px;" #chatContainer>
+                <div class="p-4 pb-2">
+                    <ng-container *ngFor="let message of messages; let last = last">
+                        <app-chat-message
+                            [message]="message"
+                            [user]="user"
+                        ></app-chat-message>
+                    </ng-container>
+                    <ng-container *ngFor="let user of typingUsers">
+                        <app-user-typing [user]="user"></app-user-typing>
+                    </ng-container>
+                </div>
+            </div>
+            <form id="messageForm" [formGroup]="messageForm">
+                <div class="flex">
+                    <div>
+                        <label
+                            for="message"
+                            class="block text-sm font-medium leading-6 text-gray-900 hidden"
+                            >Message</label
+                        >
+                        <div class="relative mt-4 rounded-md shadow-sm">
+                            <input
+                                type="text"
+                                name="message"
+                                id="message"
+                                [formControlName]="'message'"
+                                class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 placeholder:text-gray-400"
+                                placeholder="Send message"
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <button
+                            [disabled]="!messageForm.valid"
+                            class="py-1.5 px-4 mt-4 ml-4 bg-blue-200 text-white rounded-md"
+                            [ngClass]="{
+                                'cursor-pointer bg-blue-400': messageForm.valid
+                            }"
+                            (click)="sendMessage()"
+                        >
+                            Send
+                        </button>
+                    </div>
+                </div>
+                <div class="text-gray-4 mb-2 mt-8">
+                    HINT: If you mention certain topics, the bot will chime in. Try sending a message referencing any of the following:
+                    <div class="bg-white mt-2 p-2">bad day</div>
+                    <div class="bg-white p-2">music</div>
+                    <div class="bg-white p-2">weather</div>
+                    <div class="bg-white p-2">how are you</div>
+                    <div class="bg-white p-2">joke</div>
+                 </div>
+                <div>
+                    <button
+                        class="py-1.5 px-4 mt-10 bg-cyan-700 text-white rounded-md"
+                        (click)="leaveChat()"
+                    >
+                        Leave Chat
+                    </button>
+                </div>
+            </form>
+        </ng-container>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+<div
+    *ngIf="user && user.isTyping"
+    class="text-gray-600 bg-amber-50 p-4 border rounded-lg mb-2 mr-10 italic"
+>
+<fa-icon [icon]="faSpinner" [spin]="true"></fa-icon> {{user.name}} is typing
+</div>
+

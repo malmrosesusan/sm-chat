@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@types/cors": "^2.8.13",
+    "@databases/sqlite": "^4.0.2",
     "cors": "^2.8.5",
     "reflect-metadata": "^0.1.13",
     "socket.io": "^4.6.1",
